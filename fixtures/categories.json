@@ -1,0 +1,34 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Смартфоны",
+        "description": "Мобильные телефоны и аксессуары"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Ноутбуки",
+        "description": "Портативные компьютеры"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 3,
+    "fields": {
+        "name": "Смартфоны",
+        "description": "Мобильные телефоны и аксессуары"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 4,
+    "fields": {
+        "name": "Ноутбуки",
+        "description": "Портативные компьютеры"
+    }
+}
+]
