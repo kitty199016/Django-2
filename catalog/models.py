@@ -2,34 +2,44 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Наименование')
-    description = models.TextField(blank=True, null=True, verbose_name='Описание')
+    name = models.CharField(max_length=100, verbose_name="Наименование")
+    description = models.TextField(blank=True, null=True, verbose_name="Описание")
 
     class Meta:
-        verbose_name = 'Категория'
-        verbose_name_plural = 'Категории'
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
 
     def __str__(self):
         return self.name
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=150, verbose_name='Наименование')
-    description = models.TextField(blank=True, null=True, verbose_name='Описание')
-    image = models.ImageField(upload_to='products/', blank=True, null=True, verbose_name='Изображение')
+    name = models.CharField(max_length=100, verbose_name="Наименование")
+    description = models.TextField(blank=True, null=True, verbose_name="Описание")
+    image = models.ImageField(upload_to='products/', blank=True, null=True, verbose_name="Изображение")
     category = models.ForeignKey(
         Category,
         on_delete=models.CASCADE,
-        related_name='products',
-        verbose_name='Категория'
+        related_name="products",
+        verbose_name="Категория",
+        blank=True,
+        null=True
     )
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Цена за покупку')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Цена за покупку")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата последнего изменения")
 
     class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
     def __str__(self):
-        return f'{self.name} ({self.price} руб.)'
+        return self.name
+
+
+class Photo(models.Model):
+    title = models.CharField(max_length=100, verbose_name="Название")
+    image = models.ImageField(upload_to='images/', verbose_name="Изображение")
+
+    def __str__(self):
+        return self.title
