@@ -1,22 +1,30 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from django.views import View
+from django.views.generic import DetailView, ListView
 from .models import Product
 
 
-def home(request):
-    products = Product.objects.all()
-    return render(request, 'catalog/home.html', {'products': products})
+class HomeListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
 
 
-def contacts(request):
-    if request.method == 'POST':
+class ContactsView(View):
+    template_name = 'catalog/contacts.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
         name = request.POST.get('name')
         phone = request.POST.get('phone')
         message = request.POST.get('message')
         print(f'{name} ({phone}): {message}')
-    return render(request, 'catalog/contacts.html')
+        return render(request, self.template_name)
 
 
-def product_detail(request, pk):
-    product = get_object_or_404(Product, pk=pk)
-    return render(request, 'catalog/product_detail.html', {'product': product})
-
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
