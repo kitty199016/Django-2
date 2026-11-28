@@ -1,0 +1,30 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Блог — Skystore{% endblock %}
+
+{% block content %}
+<h1>Блог Skystore</h1>
+<p>Полезные статьи, обзоры и новости проекта.</p>
+
+<a href="{% url 'blog:post_create' %}" class="btn btn-primary mb-4">Добавить статью</a>
+
+{% for post in posts %}
+    <div class="card mb-4">
+        {% if post.preview %}
+            <img src="{{ post.preview.url }}" alt="{{ post.title }}" class="card-img-top">
+        {% endif %}
+        <div class="card-body">
+            <h4>{{ post.title }}</h4>
+            <p class="text-muted">
+                Опубликовано: {{ post.created_at|date:"d.m.Y H:i" }} | Просмотров: {{ post.views_count }}
+            </p>
+            <p>{{ post.content|truncatechars:150 }}</p>
+            <a href="{% url 'blog:post_detail' post.pk %}" class="btn btn-outline-primary">Читать далее</a>
+            <a href="{% url 'blog:post_update' post.pk %}" class="btn btn-outline-secondary">Редактировать</a>
+            <a href="{% url 'blog:post_delete' post.pk %}" class="btn btn-outline-danger">Удалить</a>
+        </div>
+    </div>
+{% empty %}
+    <p>Статьи пока не добавлены.</p>
+{% endfor %}
+{% endblock %}

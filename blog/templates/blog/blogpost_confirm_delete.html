@@ -1,0 +1,14 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Удаление статьи — Skystore{% endblock %}
+
+{% block content %}
+<h1>Удаление статьи</h1>
+<p>Вы действительно хотите удалить статью <strong>«{{ object.title }}»</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Подтвердить удаление</button>
+    <a href="{% url 'blog:post_detail' object.pk %}" class="btn btn-outline-secondary">Отмена</a>
+</form>
+{% endblock %}
